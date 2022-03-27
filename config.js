@@ -16,25 +16,6 @@ second: 'numeric'
 
 function pickRandom(list) {
   return list[Math.floor(Math.random() * list.length)]
-}
-let moment = require('moment-timezone')
-let d = new Date(new Date + 3600000)
-let locale = 'id'
-let week = d.toLocaleDateString(locale, { weekday: 'long' })
-let date = d.toLocaleDateString(locale, {
-day: 'numeric',
-month: 'long',
-year: 'numeric'
-})
-
-let time = d.toLocaleTimeString(locale, {
-hour: 'numeric',
-minute: 'numeric',
-second: 'numeric'
-})
-
-function pickRandom(list) {
-  return list[Math.floor(Math.random() * list.length)]
 }global.owner = ['17608914335'] // Put your number here
 global.mods = [] // Want some help?
 global.prems = [] // Premium user has unlimited limit
