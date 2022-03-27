@@ -131,8 +131,8 @@ pkg install nodejs
 pkg install ffmpeg
 pkg install imagemagick
 pkg install yarn
-git clone https://github.com/Paquito1923/elyasmd
-cd elyasmd
+git clone https://github.com/FahriAdison/Marin-MD
+cd Marin-MD
 yarn
 mc
 ganti session
