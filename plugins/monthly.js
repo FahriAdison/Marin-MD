@@ -1,34 +1,32 @@
 let { MessageType } = require('@adiwajshing/baileys-md')
 
 let handler = async (m, { conn }) => {
+    let wm = global.wm
     let user = global.db.data.users[m.sender]
-    let __timers = (new Date - user.lastclaim)
-    let _timers = (86400000 - __timers)
+    let _timers = (2592000000 - (new Date - user.lastmonthly))
     let timers = clockString(_timers) 
-    if (new Date - user.lastclaim > 86400000) {
-        conn.reply(m.chat, `Anda sudah mengklaim dan mendapatkan 5000 💵money dan 3 potion`, m)
-        global.db.data.users[m.sender].money += 5000
-        global.db.data.users[m.sender].potion += 3
-        global.db.data.users[m.sender].lastclaim = new Date * 1
+    if (new Date - user.lastmonthly > 2592000000) {
+    let str = `+150000 money 💹\n+10 Legendary crate 🧰\n+5 Pet crate 📫\n+13 Iron ⛓\n+5 gold 🪙\n+15 string 🕸\n+20 kayu 🪵`
+        conn.send2But(m.chat, str, wm, 'Claim', '.claim', 'Weekly', '.weekly',m)
+        conn.reply(str)
+        user.money += 150000
+        user.legendary += 10
+        user.string += 15
+        user.kayu += 20
+        user.iron += 13
+        user.gold += 5
+        user.pet += 5
+        user.lastmonthly = new Date * 1
     } else {
         let buttons = button(`silahkan tunggu *🕒${timers}* lagi untuk bisa mengclaim lagi`, user)
         conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
     }
 }
-handler.help = ['claim']
+handler.help = ['monthly']
 handler.tags = ['rpg']
-handler.command = /^(claim|daily)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
+handler.command = /^(monthly)$/i
 
 handler.fail = null
-handler.money = 0
 
 module.exports = handler
 
@@ -42,6 +40,8 @@ function clockString(ms) {
   console.log({ms,h,m,s})
   return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
 }
+
+let botol = global.botwm
 
 function button(teks, user) {
     const buttons = []
@@ -58,7 +58,7 @@ function button(teks, user) {
     
     const buttonMessage = {
         contentText: teks,
-        footerText: '©games-wabot',
+        footerText: `${botol}`,
         buttons: buttons,
         headerType: 1
     }

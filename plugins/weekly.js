@@ -1,34 +1,30 @@
 let { MessageType } = require('@adiwajshing/baileys-md')
 
 let handler = async (m, { conn }) => {
+    let wm = global.wm
     let user = global.db.data.users[m.sender]
-    let __timers = (new Date - user.lastclaim)
-    let _timers = (86400000 - __timers)
+    let _timers = (604800000 - (new Date - user.lastweekly))
     let timers = clockString(_timers) 
-    if (new Date - user.lastclaim > 86400000) {
-        conn.reply(m.chat, `Anda sudah mengklaim dan mendapatkan 5000 💵money dan 3 potion`, m)
-        global.db.data.users[m.sender].money += 5000
-        global.db.data.users[m.sender].potion += 3
-        global.db.data.users[m.sender].lastclaim = new Date * 1
+    if (new Date - user.lastweekly > 604800000) {
+    let str = `+15000 money 💹\n+4 Legendary crate 🧰\n+7 String 🕸️\n+5 Iron ⛓️\n+2 Gold 🪙`
+        conn.send2But(m.chat, str, wm, 'Claim', '.claim', 'Monthly', '.monthly',m)
+        conn.reply(str)
+        user.money += 15000
+        user.legendary += 4
+        user.iron += 5
+        user.emas += 2
+        user.string += 7
+        user.lastweekly= new Date * 1
     } else {
         let buttons = button(`silahkan tunggu *🕒${timers}* lagi untuk bisa mengclaim lagi`, user)
         conn.sendMessage(m.chat, buttons, MessageType.buttonsMessage, { quoted: m })
     }
 }
-handler.help = ['claim']
+handler.help = ['weekly']
 handler.tags = ['rpg']
-handler.command = /^(claim|daily)$/i
-handler.owner = false
-handler.mods = false
-handler.premium = false
-handler.group = false
-handler.private = false
-
-handler.admin = false
-handler.botAdmin = false
+handler.command = /^(weekly)$/i
 
 handler.fail = null
-handler.money = 0
 
 module.exports = handler
 
@@ -43,6 +39,7 @@ function clockString(ms) {
   return [h, m, s].map(v => v.toString().padStart(2, 0) ).join(':')
 }
 
+let botol = global.botwm
 function button(teks, user) {
     const buttons = []
     
@@ -58,7 +55,7 @@ function button(teks, user) {
     
     const buttonMessage = {
         contentText: teks,
-        footerText: '©games-wabot',
+        footerText: `${botol}`,
         buttons: buttons,
         headerType: 1
     }
