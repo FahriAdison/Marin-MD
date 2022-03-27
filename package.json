@@ -23,16 +23,16 @@
         "ShiraoriBOT",
         "wabot-aq"
     ],
-    "homepage": "https://github.com/Paquito1923/elyasmd",
+    "homepage": "https://github.com/FahriAdison/Marin-MD",
     "author": {
         "name": "Elyas"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/Paquito1923/elyasmd.git"
+        "url": "git+https://github.com/FahriAdison/Marin-MD.git"
     },
     "bugs": {
-        "url": "https://github.com/Paquito1923/elyasmd/issues"
+        "url": "https://github.com/FahriAdison/Marin-MD/issues"
     },
     "license": "GPL-3.0-or-later",
     "dependencies": {
