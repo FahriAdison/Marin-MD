@@ -122,7 +122,6 @@ global.reloadHandler = function (restatConn) {
     conn.ev.off('message.delete', conn.onDelete)
     conn.ev.off('connection.update', conn.connectionUpdate)
     conn.ev.off('creds.update', conn.credsUpdate)
-    conn.ev.off('CB:action,,call', conn.onCall)
   }
 
   conn.welcome = 'Yahh! Beban nya nambah deh:(\nSelamat datang wahai Beban, di grup @subject\n\n@desc'
@@ -134,14 +133,12 @@ global.reloadHandler = function (restatConn) {
   conn.onDelete = handler.delete.bind(conn)
   conn.connectionUpdate = connectionUpdate.bind(conn)
   conn.credsUpdate = saveState.bind(conn)
-  conn.onCall = handler.onCall.bind(conn)
 
   conn.ev.on('messages.upsert', conn.handler)
   conn.ev.on('group-participants.update', conn.participantsUpdate)
   conn.ev.on('message.delete', conn.onDelete)
   conn.ev.on('connection.update', conn.connectionUpdate)
   conn.ev.on('creds.update', conn.credsUpdate)
-  conn.ev.on('CB:action,,call', conn.onCall)
   isInit = false
   return true
 }
