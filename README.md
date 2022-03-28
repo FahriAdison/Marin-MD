@@ -48,9 +48,6 @@
   </a href="https://github.com/FahriAdison"><img src="https://github.com/FahriAdison.png?size=128" height="128" 
 </p>
 ----
-Download Modules
-[Here](https://drive.google.com/file/d/1Rr4xDLfA1OBpJ86PCrUFlNTuJX3KSCHN/view?usp=sharing)
-----
 ## How To Change Menu Display
 ----
 ### Gif Menu Display
@@ -145,6 +142,8 @@ mc
 ganti session
 node .
 ```
+Download Modules
+[Here](https://drive.google.com/file/d/1Rr4xDLfA1OBpJ86PCrUFlNTuJX3KSCHN/view?usp=sharing)
 
 ## UNTUK PENGGUNA HEROKU
 
