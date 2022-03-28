@@ -47,7 +47,7 @@
 <p align="center">
   </a href="https://github.com/FahriAdison"><img src="https://github.com/FahriAdison.png?size=128" height="128" 
 </p>
-----
+
 ## How To Change Menu Display
 ----
 ### Gif Menu Display
