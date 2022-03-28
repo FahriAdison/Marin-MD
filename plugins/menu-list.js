@@ -2,6 +2,7 @@
 //GUNAKAN MENU KE 2 YAH
 //MOHON MAAF SEBELUMNYA
 let { default: makeWASocket, BufferJSON, WA_DEFAULT_EPHEMERAL, generateWAMessageFromContent, downloadContentFromMessage, downloadHistory, proto, getMessage, generateWAMessageContent, prepareWAMessageMedia } = require('@adiwajshing/baileys-md')
+wm = global.wm
 let levelling = require('../lib/levelling')
 let fs = require('fs')
 const util = require('util')
@@ -13,20 +14,33 @@ let { perfomance } = require('perf_hooks')
 let moment = require('moment-timezone')
 const defaultMenu = {
   before:`
-╭────❑ *MENU* ❑────
-❑────❑ %me
-│✾ Version: %version
-│✾ Library: Baileys-MD
-│✾ Mode: ${global.opts['self'] ? 'Self' : 'publik'}
-│✾ Runtime: %uptime
-╰❑
-╭────❑「 INFO 」❑────
-${informasibot}
-╰────
-%readmore`.trimStart(),
-  header: '┌─〔 %category 〕',
-  body: '├ %cmd %islimit %isPremium',
-  footer: '└────\n',
+┏━━「 ${wm} 」━⬣
+┃⬡📊 *Version*: %version
+┃⬡🗃️ *Lib*: Baileys-MD
+┃⬡🧪 *Mode:* ${global.opts['self'] ? 'Self' : 'publik'}
+┃⬡⏰ *Uptime:* %uptime
+┗⬣
+┏━━⬣ 𝙄𝙉𝙁𝙊 𝙐𝙎𝙀𝙍
+┃⬡ 📇 *Name*:  %name 
+┃⬡ 🆔 *Status*: ---
+┃⬡ 🎫 *Limit*: %limit
+┃⬡ 💹 *Money*: %money
+┃⬡ ✨ *Exp*: %totalexp
+┃⬡ 📊 *Level*: %level
+┃⬡ 📍 *Role*: %role
+┃⬡ 💲Premium : ${global.prem ? '✅' : '❌'}
+┗⬣
+┏━━⬣ 𝙄𝙉𝙁𝙊 𝙎𝙏𝘼𝙏𝙐𝙎
+┃
+┃⬡ *${Object.keys(global.db.data.users).length}* Pengguna
+┃⬡ *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
+┃⬡ *${Object.entries(global.db.data.users).filter(user => user[1].banned).length}* Pengguna Terbanned
+┃
+┗⬣
+  %readmore`.trimStart(), 
+  header: '┏━━「 %category 」━⬣',
+  body: '┃ ◇ %cmd %islimit %isPremium',
+  footer: '┗━━━━━━⬣\n',
   after: ``,
 }
 
@@ -138,9 +152,13 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
 
   try {
     let package = JSON.parse(await fs.promises.readFile(path.join(__dirname, '../package.json')).catch(_ => '{}'))
-    let { exp, limit, level, role, registered } = global.db.data.users[m.sender]
+    let who
+    if (m.isGroup) who = m.mentionedJid[0] ? m.mentionedJid[0] : m.sender
+    else who = m.sender 
+    let user = global.db.data.users[who]
+    let { exp, limit, level, money, role } = global.db.data.users[m.sender]
     let { min, xp, max } = levelling.xpRange(level, global.multiplier)
-    let name = await conn.getName(m.sender)
+    let name = conn.getName(m.sender)
     let d = new Date(new Date + 3600000)
     let locale = 'id'
     let week = d.toLocaleDateString(locale, { weekday: 'long' })
@@ -176,7 +194,8 @@ let tulisan = `
 ${ucapan()} ${name}. Have a great day！
 Terimakasih Atas Kunjungan Anda`.trim()
 let sangek = `Berikut adalah list Menu Bot. klik pada "Click Here!" untuk melihat list menu.`
-
+let totalreg = Object.keys(global.db.data.users).length
+    let rtotalreg = Object.values(global.db.data.users).filter(user => user.registered == true).length
 let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(plugin => {
     return {
       help: Array.isArray(plugin.tags) ? plugin.help : [plugin.help],
@@ -355,10 +374,14 @@ let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(
       npmname: package.name,
       npmdesc: package.description,
       version: package.version,
+      exp: exp - min,
+      maxexp: xp,
+      totalexp: exp,
+      xp4levelup: max - exp,
       github: package.homepage ? package.homepage.url || package.homepage : '[unknown github url]',
       name,
       ucapan: ucapan(),
-      name, weton, week, date, dateIslamic, time,
+      level, limit, money, name, weton, week, date, dateIslamic, time, totalreg, rtotalreg, role,
       readmore: readMore
     }
     text = text.replace(new RegExp(`%(${Object.keys(replace).sort((a, b) => b.length - a.length).join`|`})`, 'g'), (_, name) => '' + replace[name])
