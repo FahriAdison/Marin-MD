@@ -20,7 +20,7 @@ const defaultMenu = {
 ┃⬡🧪 *Mode:* ${global.opts['self'] ? 'Self' : 'publik'}
 ┃⬡⏰ *Uptime:* %uptime
 ┗⬣
-┏━━⬣ 𝙄𝙉𝙁𝙊 𝙐𝙎𝙀𝙍
+┏━━⬣ 𝙄𝙉𝙁𝙊 𝙐𝙎𝙀𝙍 ━⬣
 ┃⬡ 📇 *Name*:  %name 
 ┃⬡ 🆔 *Status*: ---
 ┃⬡ 🎫 *Limit*: %limit
@@ -30,7 +30,7 @@ const defaultMenu = {
 ┃⬡ 📍 *Role*: %role
 ┃⬡ 💲Premium : ${global.prem ? '✅' : '❌'}
 ┗⬣
-┏━━⬣ 𝙄𝙉𝙁𝙊 𝙎𝙏𝘼𝙏𝙐𝙎
+┏━━⬣ 𝙄𝙉𝙁𝙊 𝙎𝙏𝘼𝙏𝙐𝙎 ━⬣
 ┃
 ┃⬡ *${Object.keys(global.db.data.users).length}* Pengguna
 ┃⬡ *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
@@ -47,13 +47,14 @@ const defaultMenu = {
 let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
   let tags
   let teks = `${args[0]}`.toLowerCase()
-  let arrayMenu = ['all', 'absen', 'rpg', 'anime', 'downloader', 'game', 'fun', 'xp', 'github', 'group', 'image', 'quotes', 'admin', 'info', 'internet', 'islam', 'kerang', 'maker', 'owner', 'suara', 'premium', 'quotes', 'info', 'stalk', 'shortlink', 'sticker', 'tools']
+  let arrayMenu = ['all', 'absen', 'rpg', 'anime', 'nsfw', 'downloader', 'game', 'fun', 'xp', 'github', 'group', 'image', 'quotes', 'admin', 'info', 'internet', 'islam', 'kerang', 'maker', 'owner', 'suara', 'premium', 'quotes', 'info', 'stalk', 'shortlink', 'sticker', 'tools']
   if (!arrayMenu.includes(teks)) teks = '404'
   if (teks == 'all') tags = {
   'main': '*MENU UTAMA*',
   'advanced': '*ADVANCED*',
   'absen': '*MENU ABSEN*',
   'anime': '*MENU ANIME*',
+  'nsfw': '*MENU NSFW*',
   'sticker': '*MENU CONVERT*',
   'downloader': '*MENU DOWNLOADER*',
   'xp': '*MENU EXP*',
@@ -83,6 +84,9 @@ let handler = async (m, { conn, usedPrefix: _p, args, command }) => {
   }
   if (teks == 'anime') tags = {
   'anime': '*MENU ANIME*',
+  }
+  if (teks == 'nsfw') tags = {
+  'nsfw': '*MENU NSFW*',
   }
   if (teks == 'sticker') tags = {
   'sticker': '*MENU CONVERT*',
@@ -240,6 +244,10 @@ let help = Object.values(global.plugins).filter(plugin => !plugin.disabled).map(
                   "title": "ANIME MENU",
                   "description": "Menampilkan Menu Anime",
                   "rowId": `${_p}? anime`
+                }, {
+                  "title": "NSFW MENU",
+                  "description": "Menampilkan Menu Nsfw",
+                  "rowId": `${_p}? nsfw`
                 }, {
                   "title": "STICKER & CONVERTER",
                   "description": "Menampilkan Menu Sticker",

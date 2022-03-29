@@ -9,6 +9,7 @@ let tags = {
   'absen': '*MENU ABSEN*',
   'rpg': '*MENU RPG*',
   'anime': '*MENU ANIME*',
+  'nsfw': '*MENU NSFW*',
   'sticker': '*MENU CONVERT*',
   'downloader': '*MENU DOWNLOADER*',
   'xp': '*MENU EXP*',
@@ -35,7 +36,7 @@ const defaultMenu = {
 ┃⬡🧪 *Mode:* ${global.opts['self'] ? 'Self' : 'publik'}
 ┃⬡⏰ *Uptime:* %uptime
 ┗⬣
-┏━━⬣ 𝙄𝙉𝙁𝙊 𝙐𝙎𝙀𝙍
+┏━━⬣ 𝙄𝙉𝙁𝙊 𝙐𝙎𝙀𝙍 ━⬣
 ┃⬡ 📇 *Name*:  %name 
 ┃⬡ 🆔 *Status*: ---
 ┃⬡ 🎫 *Limit*: %limit
@@ -45,7 +46,7 @@ const defaultMenu = {
 ┃⬡ 📍 *Role*: %role
 ┃⬡ 💲Premium : ${global.prem ? '✅' : '❌'}
 ┗⬣
-┏━━⬣ 𝙄𝙉𝙁𝙊 𝙎𝙏𝘼𝙏𝙐𝙎
+┏━━⬣ 𝙄𝙉𝙁𝙊 𝙎𝙏𝘼𝙏𝙐𝙎 ━⬣
 ┃
 ┃⬡ *${Object.keys(global.db.data.users).length}* Pengguna
 ┃⬡ *${Object.entries(global.db.data.chats).filter(chat => chat[1].isBanned).length}* Chat Terbanned
